@@ -17,7 +17,15 @@ if (!JWT_SECRET) {
 }
 
 // MongoDB connection
-mongoose.connect("mongodb://mongodb:27017/internship_db")
+const MONGO_HOST = process.env.MONGO_HOST || "mongodb";
+const MONGO_USER = process.env.MONGO_USER;
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
+
+const mongoUri = (MONGO_USER && MONGO_PASSWORD)
+    ? `mongodb://${encodeURIComponent(MONGO_USER)}:${encodeURIComponent(MONGO_PASSWORD)}@${MONGO_HOST}:27017/internship_db?authSource=admin`
+    : `mongodb://${MONGO_HOST}:27017/internship_db`;
+
+mongoose.connect(mongoUri)
     .then(() => console.log("MongoDB Connected Successfully"))
     .catch(err => console.error("MongoDB Error:", err));
 
