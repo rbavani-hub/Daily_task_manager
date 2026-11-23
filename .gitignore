@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+build/
+*.log
+mongo-data-backup.tar.gz
+
+# Local secrets and database backups
+*.zip
+*.gz
+*.bak
+*.sql
